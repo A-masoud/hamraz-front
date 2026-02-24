@@ -1,12 +1,15 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import {
   ChevronDown,
   Menu,
   X,
-
+  Calendar,
+  Phone,
+  Sparkles
 } from 'lucide-react'
 import { navItems } from '@/Items/Home'
 
@@ -16,52 +19,65 @@ export default function Nav() {
   return (
     <>
       {/* ================= DESKTOP NAV ================= */}
-      <NavigationMenu.Root className="hidden md:flex justify-center border-t border-gray-100 relative z-50 bg-white">
+      <NavigationMenu.Root className="hidden md:flex justify-center relative z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0">
+        {/* گرادیان خط بالا */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500"></div>
 
-        <div className="w-full max-w-6xl px-4 flex items-center justify-between">
+        <div className="w-full max-w-7xl px-6 flex items-center justify-between py-3">
 
-          {/* CTA Button */}
-          <button className="px-6 py-2.5 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600 active:scale-95 transition-all shadow-sm hover:shadow-md">
+                  <Link 
+            href="/calender"  
+            className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 text-white text-sm font-bold rounded-xl hover:shadow-lg hover:shadow-pink-200 active:scale-95 transition-all duration-300"
+          >
+            <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
             رزرو نوبت مشاوره
-          </button>
+          </Link>
+
 
           {/* Menu */}
-          <NavigationMenu.List className="flex items-center flex-row-reverse gap-2 py-3">
+          <NavigationMenu.List className="flex items-center flex-row-reverse gap-1">
 
             {navItems.map((item, index) => (
-              <NavigationMenu.Item key={index} className="relative ">
+              <NavigationMenu.Item key={index} className="relative">
 
                 {item.hasDropdown ? (
                   <>
                     <NavigationMenu.Trigger
-                      className={`group flex items-center gap-1 px-4 py-2 text-sm rounded-md transition-all
-                      hover:bg-pink-50
-                      data-[state=open]:bg-pink-50
-                      ${item.active ? 'text-pink-500 font-medium' : 'text-gray-700'}
-                      hover:text-pink-500`}
+                      className={`group flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300
+                      hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50
+                      data-[state=open]:bg-gradient-to-r data-[state=open]:from-pink-50 data-[state=open]:to-blue-50
+                      ${item.active ? 'text-pink-600 font-bold' : 'text-gray-700'}
+                      hover:text-pink-600`}
                     >
                       {item.name}
-                      <ChevronDown className="w-4 h-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                      <ChevronDown className="w-4 h-4 transition-transform duration-300 group-data-[state=open]:rotate-180 text-gray-400 group-hover:text-pink-500" />
                     </NavigationMenu.Trigger>
 
                     <NavigationMenu.Content
                       className="
-                        absolute top-full left-1/2 -translate-x-1/2 mt-2
-                        bg-white rounded-xl shadow-xl border border-gray-100
-                        p-2 min-w-[220px]
+                        absolute top-full left-1/2 -translate-x-1/2 mt-3
+                        bg-white rounded-2xl shadow-2xl shadow-pink-100/50 border border-gray-100
+                        p-3 min-w-[240px]
                         z-50
+                        data-[state=open]:animate-slideDown
+                        data-[state=closed]:animate-slideUp
+                        overflow-hidden
                       "
                     >
-                      <ul className="space-y-1">
+                      {/* دکوراسیون گرادیان بالای dropdown */}
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-blue-500"></div>
+                      
+                      <ul className="space-y-1 pt-2">
                         {item.dropdownItems?.map((subItem, subIndex) => (
                           <li key={subIndex}>
                             <NavigationMenu.Link asChild>
-                              <a
+                              <Link
                                 href={subItem.href || '#'}
-                                className="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-pink-50 hover:text-pink-500 transition-colors"
+                                className="group flex items-center gap-3 px-4 py-3 text-sm text-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50 hover:text-pink-600 transition-all duration-200"
                               >
+                                <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-pink-500 transition-colors"></span>
                                 {subItem.name}
-                              </a>
+                              </Link>
                             </NavigationMenu.Link>
                           </li>
                         ))}
@@ -70,15 +86,15 @@ export default function Nav() {
                   </>
                 ) : (
                   <NavigationMenu.Link asChild>
-                    <a
+                    <Link
                       href={item.href || '#'}
-                      className={`px-4 py-2 text-sm rounded-md transition-colors
-                      hover:bg-pink-50
-                      ${item.active ? 'text-pink-500 font-medium' : 'text-gray-700'}
-                      hover:text-pink-500`}
+                      className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300
+                      hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50
+                      ${item.active ? 'text-pink-600 font-bold' : 'text-gray-700'}
+                      hover:text-pink-600`}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   </NavigationMenu.Link>
                 )}
 
@@ -87,75 +103,137 @@ export default function Nav() {
 
           </NavigationMenu.List>
 
+          {/* CTA Button */}
+
+
         </div>
       </NavigationMenu.Root>
 
       {/* ================= MOBILE HEADER ================= */}
-      <div className="md:hidden border-t border-gray-100 bg-white relative z-40">
+      <div className="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-40">
+        {/* گرادیان خط بالا */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500"></div>
+        
         <div className="flex items-center justify-between px-4 py-3">
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-gray-700 hover:text-pink-500 hover:bg-pink-50 rounded-lg transition-colors"
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          {/* Logo Mobile */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center text-white shadow-md">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <span className="font-bold text-lg text-gray-800">آرامش</span>
+          </Link>
 
-          <button className="px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600 active:scale-95 transition-all">
-            رزرو نوبت
-          </button>
+          <div className="flex items-center gap-2">
+            <Link 
+              href="/calender"
+              className="px-4 py-2 bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xs font-bold rounded-lg shadow-md"
+            >
+              رزرو نوبت
+            </Link>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2.5 text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-all duration-200"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
 
         </div>
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="border-t border-gray-100 bg-white absolute w-full left-0 shadow-lg">
-            <ul className="px-4 py-2 space-y-1">
+          <div className="border-t border-gray-100 bg-white absolute w-full left-0 shadow-2xl shadow-pink-100/50 animate-slideDown">
+            <div className="p-4 space-y-2">
               {navItems.map((item, index) => (
-                <li key={index}>
+                <div key={index}>
                   {item.hasDropdown ? (
                     <details className="group">
-                      <summary className="flex items-center justify-between px-3 py-3 text-sm text-gray-700 rounded-lg hover:bg-pink-50 cursor-pointer list-none">
-                        <span className={item.active ? 'text-pink-500 font-medium' : ''}>
+                      <summary className="flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50 cursor-pointer list-none transition-all duration-200">
+                        <span className={item.active ? 'text-pink-600 font-bold' : ''}>
                           {item.name}
                         </span>
-                        <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
+                        <ChevronDown className="w-4 h-4 transition-transform duration-300 group-open:rotate-180 text-gray-400" />
                       </summary>
 
-                      <ul className="pr-4 mt-1 space-y-1 border-r-2 border-pink-100 mr-3">
+                      <ul className="pr-4 mt-2 space-y-1 border-r-2 border-gradient-to-b from-pink-300 to-blue-300 mr-3">
                         {item.dropdownItems?.map((subItem, subIndex) => (
                           <li key={subIndex}>
-                            <a
+                            <Link
                               href={subItem.href || '#'}
-                              className="block px-3 py-2 text-sm text-gray-600 hover:text-pink-500 hover:bg-pink-50 rounded-md transition-colors"
+                              className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-600 hover:text-pink-600 hover:bg-pink-50/50 rounded-lg transition-all duration-200"
+                              onClick={() => setMobileMenuOpen(false)}
                             >
+                              <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
                               {subItem.name}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
                     </details>
                   ) : (
-                    <a
+                    <Link
                       href={item.href || '#'}
-                      className={`block px-3 py-3 text-sm rounded-lg hover:bg-pink-50 transition-colors
-                      ${item.active ? 'text-pink-500 font-medium' : 'text-gray-700'}
-                      hover:text-pink-500`}
+                      className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200
+                      ${item.active ? 'text-pink-600 font-bold bg-pink-50' : 'text-gray-700'}
+                      hover:text-pink-600 hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50`}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
+                      <span className={`w-2 h-2 rounded-full ${item.active ? 'bg-pink-500' : 'bg-gray-300'}`}></span>
                       {item.name}
-                    </a>
+                    </Link>
                   )}
-                </li>
+                </div>
               ))}
-            </ul>
+              
+              {/* Contact Info Mobile */}
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <a href="tel:09123456789" className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:text-pink-600 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-pink-100 flex items-center justify-center">
+                    <Phone className="w-4 h-4 text-pink-500" />
+                  </div>
+                  ۰۹۱۲۳۴۵۶۷۸۹
+                </a>
+              </div>
+            </div>
           </div>
         )}
       </div>
-      
+
+      {/* استایل‌های انیمیشن */}
+      <style jsx global>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+        }
+        .animate-slideDown {
+          animation: slideDown 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animate-slideUp {
+          animation: slideUp 200ms ease-in;
+        }
+      `}</style>
     </>
   )
 }
