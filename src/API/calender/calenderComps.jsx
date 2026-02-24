@@ -6,7 +6,7 @@ import ReservationModal from "@/API/reservForm/ReservationModal";
 import { handleDateClick } from "@/services/calendarActions";
 import { useCalendarEvents } from "@/hooks/useCalendarEvents";
 import { useReservation } from "@/hooks/useReservation";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
 import { CalendarDays, Clock, Sparkles } from "lucide-react";
 
 export default function CalendarPage() {
@@ -18,6 +18,8 @@ export default function CalendarPage() {
   const [daySlots, setDaySlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
+  const slotsRef = useRef(null);
+
   const formattedDate = useMemo(() => {
     if (!selectedDate) return "";
     return new Date(selectedDate).toLocaleDateString("fa-IR");
@@ -27,10 +29,18 @@ export default function CalendarPage() {
     async (date) => {
       try {
         setSelectedDate(date);
-        setDaySlots([]); // جلوگیری از فلاش داده قبلی
+        setDaySlots([]);
         setLoadingSlots(true);
 
         await handleDateClick(date, setDaySlots, setLoadingSlots);
+
+        // اسکرول بعد از لود شدن
+        setTimeout(() => {
+          slotsRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
       } catch (error) {
         console.error("خطا در دریافت تایم‌ها:", error);
         setLoadingSlots(false);
@@ -41,7 +51,7 @@ export default function CalendarPage() {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-b -scale-z-100 from-white via-pink-50/30 to-white py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-gradient-to-b from-white via-pink-50/30 to-white py-12 px-4 sm:px-6 lg:px-8"
       dir="rtl"
     >
       <div className="max-w-6xl mx-auto">
@@ -68,10 +78,7 @@ export default function CalendarPage() {
         {/* Calendar */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="relative">
-              <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin"></div>
-              <div className="absolute inset-0 w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
-            </div>
+            <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin"></div>
           </div>
         ) : (
           <Calendar events={events} onDateClick={onDateClick} />
@@ -79,7 +86,7 @@ export default function CalendarPage() {
 
         {/* Day Slots */}
         {selectedDate && (
-          <div className="mt-10 relative">
+          <div ref={slotsRef} className="mt-10 relative">
             <div className="absolute inset-0 bg-gradient-to-r from-pink-100 to-blue-100 rounded-3xl blur-xl opacity-50"></div>
 
             <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white p-8">
@@ -118,7 +125,6 @@ export default function CalendarPage() {
           </div>
         )}
 
-        {/* Modal */}
         <ReservationModal
           isOpen={isOpen}
           onClose={closeReservation}

@@ -1,52 +1,52 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Link from 'next/link'
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import React from "react";
+import Link from "next/link";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import {
   ChevronDown,
   Menu,
   X,
   Calendar,
   Phone,
-  Sparkles
-} from 'lucide-react'
-import { navItems } from '@/Items/Home'
+  Sparkles,
+} from "lucide-react";
+import { navItems } from "@/Items/Home";
 
 export default function Nav() {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
     <>
       {/* ================= DESKTOP NAV ================= */}
       <NavigationMenu.Root className="hidden md:flex justify-center relative z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0">
-        {/* گرادیان خط بالا */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500"></div>
 
         <div className="w-full max-w-7xl px-6 flex items-center justify-between py-3">
-
-                  <Link 
-            href="/calender"  
+          {/* CTA */}
+          <Link
+            href="/calender"
             className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 text-white text-sm font-bold rounded-xl hover:shadow-lg hover:shadow-pink-200 active:scale-95 transition-all duration-300"
           >
             <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
             رزرو نوبت مشاوره
           </Link>
 
-
           {/* Menu */}
           <NavigationMenu.List className="flex items-center flex-row-reverse gap-1">
-
-            {navItems.map((item, index) => (
-              <NavigationMenu.Item key={index} className="relative">
-
+            {navItems.map((item) => (
+              <NavigationMenu.Item key={item.name} className="relative">
                 {item.hasDropdown ? (
                   <>
                     <NavigationMenu.Trigger
                       className={`group flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300
                       hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50
                       data-[state=open]:bg-gradient-to-r data-[state=open]:from-pink-50 data-[state=open]:to-blue-50
-                      ${item.active ? 'text-pink-600 font-bold' : 'text-gray-700'}
+                      ${
+                        item.active
+                          ? "text-pink-600 font-bold"
+                          : "text-gray-700"
+                      }
                       hover:text-pink-600`}
                     >
                       {item.name}
@@ -64,15 +64,14 @@ export default function Nav() {
                         overflow-hidden
                       "
                     >
-                      {/* دکوراسیون گرادیان بالای dropdown */}
                       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-blue-500"></div>
-                      
+
                       <ul className="space-y-1 pt-2">
-                        {item.dropdownItems?.map((subItem, subIndex) => (
-                          <li key={subIndex}>
+                        {item.dropdownItems?.map((subItem) => (
+                          <li key={subItem.name}>
                             <NavigationMenu.Link asChild>
                               <Link
-                                href={subItem.href || '#'}
+                                href={subItem.href || "#"}
                                 className="group flex items-center gap-3 px-4 py-3 text-sm text-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50 hover:text-pink-600 transition-all duration-200"
                               >
                                 <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-pink-500 transition-colors"></span>
@@ -87,36 +86,32 @@ export default function Nav() {
                 ) : (
                   <NavigationMenu.Link asChild>
                     <Link
-                      href={item.href || '#'}
+                      href={item.href || "#"}
                       className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300
                       hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50
-                      ${item.active ? 'text-pink-600 font-bold' : 'text-gray-700'}
+                      ${
+                        item.active
+                          ? "text-pink-600 font-bold"
+                          : "text-gray-700"
+                      }
                       hover:text-pink-600`}
                     >
                       {item.name}
                     </Link>
                   </NavigationMenu.Link>
                 )}
-
               </NavigationMenu.Item>
             ))}
-
           </NavigationMenu.List>
-
-          {/* CTA Button */}
-
-
         </div>
       </NavigationMenu.Root>
 
-      {/* ================= MOBILE HEADER ================= */}
-      <div className="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-40">
-        {/* گرادیان خط بالا */}
+      {/* ================= MOBILE NAV ================= */}
+      <div className="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-40 relative">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500"></div>
-        
-        <div className="flex items-center justify-between px-4 py-3">
 
-          {/* Logo Mobile */}
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center text-white shadow-md">
               <Sparkles className="w-4 h-4" />
@@ -125,7 +120,7 @@ export default function Nav() {
           </Link>
 
           <div className="flex items-center gap-2">
-            <Link 
+            <Link
               href="/calender"
               className="px-4 py-2 bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xs font-bold rounded-lg shadow-md"
             >
@@ -133,7 +128,7 @@ export default function Nav() {
             </Link>
 
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
               className="p-2.5 text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-all duration-200"
             >
               {mobileMenuOpen ? (
@@ -143,29 +138,32 @@ export default function Nav() {
               )}
             </button>
           </div>
-
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Dropdown */}
         {mobileMenuOpen && (
           <div className="border-t border-gray-100 bg-white absolute w-full left-0 shadow-2xl shadow-pink-100/50 animate-slideDown">
             <div className="p-4 space-y-2">
-              {navItems.map((item, index) => (
-                <div key={index}>
+              {navItems.map((item) => (
+                <div key={item.name}>
                   {item.hasDropdown ? (
                     <details className="group">
                       <summary className="flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50 cursor-pointer list-none transition-all duration-200">
-                        <span className={item.active ? 'text-pink-600 font-bold' : ''}>
+                        <span
+                          className={
+                            item.active ? "text-pink-600 font-bold" : ""
+                          }
+                        >
                           {item.name}
                         </span>
                         <ChevronDown className="w-4 h-4 transition-transform duration-300 group-open:rotate-180 text-gray-400" />
                       </summary>
 
-                      <ul className="pr-4 mt-2 space-y-1 border-r-2 border-gradient-to-b from-pink-300 to-blue-300 mr-3">
-                        {item.dropdownItems?.map((subItem, subIndex) => (
-                          <li key={subIndex}>
+                      <ul className="pr-4 mt-2 space-y-1 mr-3 border-r-2 border-pink-300">
+                        {item.dropdownItems?.map((subItem) => (
+                          <li key={subItem.name}>
                             <Link
-                              href={subItem.href || '#'}
+                              href={subItem.href || "#"}
                               className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-600 hover:text-pink-600 hover:bg-pink-50/50 rounded-lg transition-all duration-200"
                               onClick={() => setMobileMenuOpen(false)}
                             >
@@ -178,22 +176,33 @@ export default function Nav() {
                     </details>
                   ) : (
                     <Link
-                      href={item.href || '#'}
+                      href={item.href || "#"}
                       className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200
-                      ${item.active ? 'text-pink-600 font-bold bg-pink-50' : 'text-gray-700'}
+                      ${
+                        item.active
+                          ? "text-pink-600 font-bold bg-pink-50"
+                          : "text-gray-700"
+                      }
                       hover:text-pink-600 hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <span className={`w-2 h-2 rounded-full ${item.active ? 'bg-pink-500' : 'bg-gray-300'}`}></span>
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          item.active ? "bg-pink-500" : "bg-gray-300"
+                        }`}
+                      ></span>
                       {item.name}
                     </Link>
                   )}
                 </div>
               ))}
-              
-              {/* Contact Info Mobile */}
+
+              {/* Contact */}
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <a href="tel:09123456789" className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:text-pink-600 transition-colors">
+                <a
+                  href="tel:09123456789"
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                >
                   <div className="w-8 h-8 rounded-lg bg-pink-100 flex items-center justify-center">
                     <Phone className="w-4 h-4 text-pink-500" />
                   </div>
@@ -204,36 +213,6 @@ export default function Nav() {
           </div>
         )}
       </div>
-
-      {/* استایل‌های انیمیشن */}
-      <style jsx global>{`
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes slideUp {
-          from {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          to {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-        }
-        .animate-slideDown {
-          animation: slideDown 300ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .animate-slideUp {
-          animation: slideUp 200ms ease-in;
-        }
-      `}</style>
     </>
-  )
+  );
 }
