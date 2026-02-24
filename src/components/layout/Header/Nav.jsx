@@ -74,8 +74,9 @@ export default function Nav() {
                                 href={subItem.href || "#"}
                                 className="group flex items-center gap-3 px-4 py-3 text-sm text-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50 hover:text-pink-600 transition-all duration-200"
                               >
-                                <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-pink-500 transition-colors"></span>
                                 {subItem.name}
+                                <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-pink-500 transition-colors"></span>
+                                
                               </Link>
                             </NavigationMenu.Link>
                           </li>
