@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { useCalendarEvents } from "@/hooks/calender/useCalendarEvents";
 import FullCalendar from "@/components/ui/FullCalendar";

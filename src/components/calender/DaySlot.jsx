@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Clock, CalendarDays } from "lucide-react";
 import DaySlots from "@/components/calender/TimeSlots";

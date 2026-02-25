@@ -1,3 +1,4 @@
+"use client";
 import { useForm } from "react-hook-form";
 
 export function useReservationForm(slot, onClose) {

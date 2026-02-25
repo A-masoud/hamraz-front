@@ -1,3 +1,4 @@
+"use client";
 import { getMonthCalendar, getDayTimeSlots } from "@/services/timeslot.service";
 
 /**
