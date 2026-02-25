@@ -1,5 +1,5 @@
 import React from 'react'
-import Home from '@/components/home/HomePage'
+import Home from '@/pages/HomePage'
 export default function page() {
   return (
     <div>

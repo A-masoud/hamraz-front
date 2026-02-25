@@ -42,11 +42,10 @@ export default function Nav() {
                       className={`group flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300
                       hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50
                       data-[state=open]:bg-gradient-to-r data-[state=open]:from-pink-50 data-[state=open]:to-blue-50
-                      ${
-                        item.active
+                      ${item.active
                           ? "text-pink-600 font-bold"
                           : "text-gray-700"
-                      }
+                        }
                       hover:text-pink-600`}
                     >
                       {item.name}
@@ -76,7 +75,7 @@ export default function Nav() {
                               >
                                 {subItem.name}
                                 <span className="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-pink-500 transition-colors"></span>
-                                
+
                               </Link>
                             </NavigationMenu.Link>
                           </li>
@@ -90,11 +89,10 @@ export default function Nav() {
                       href={item.href || "#"}
                       className={`px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300
                       hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50
-                      ${
-                        item.active
+                      ${item.active
                           ? "text-pink-600 font-bold"
                           : "text-gray-700"
-                      }
+                        }
                       hover:text-pink-600`}
                     >
                       {item.name}
@@ -113,20 +111,10 @@ export default function Nav() {
 
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center text-white shadow-md">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <span className="font-bold text-lg text-gray-800">آرامش</span>
-          </Link>
+         
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/calender"
-              className="px-4 py-2 bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xs font-bold rounded-lg shadow-md"
-            >
-              رزرو نوبت
-            </Link>
+          
+
 
             <button
               onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -138,7 +126,14 @@ export default function Nav() {
                 <Menu className="w-6 h-6" />
               )}
             </button>
-          </div>
+
+          
+                       <Link
+            href="/calender"
+            className="px-6 py-4 bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xs font-bold rounded-lg shadow-md"
+          >
+            رزرو نوبت
+          </Link>
         </div>
 
         {/* Dropdown */}
@@ -179,18 +174,16 @@ export default function Nav() {
                     <Link
                       href={item.href || "#"}
                       className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200
-                      ${
-                        item.active
+                      ${item.active
                           ? "text-pink-600 font-bold bg-pink-50"
                           : "text-gray-700"
-                      }
+                        }
                       hover:text-pink-600 hover:bg-gradient-to-r hover:from-pink-50 hover:to-blue-50`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span
-                        className={`w-2 h-2 rounded-full ${
-                          item.active ? "bg-pink-500" : "bg-gray-300"
-                        }`}
+                        className={`w-2 h-2 rounded-full ${item.active ? "bg-pink-500" : "bg-gray-300"
+                          }`}
                       ></span>
                       {item.name}
                     </Link>

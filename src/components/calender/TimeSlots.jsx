@@ -1,12 +1,13 @@
+"use client";
+
 import { Clock, CheckCircle2, XCircle } from "lucide-react";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 
-export default function DaySlots({ slots = [], loading, onSlotClick }) {
-
+function DaySlots({ slots = [], loading = false, onSlotClick }) {
   const handleSlotClick = useCallback(
-    (slot, isReserved) => {
-      if (!isReserved) {
-        onSlotClick(slot);
+    (slot) => {
+      if (slot.status !== "reserved") {
+        onSlotClick?.(slot);
       }
     },
     [onSlotClick]
@@ -23,7 +24,7 @@ export default function DaySlots({ slots = [], loading, onSlotClick }) {
     );
   }
 
-  if (!slots?.length) {
+  if (!slots.length) {
     return (
       <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
         <XCircle className="w-12 h-12 text-gray-400 mx-auto mb-3" />
@@ -42,23 +43,17 @@ export default function DaySlots({ slots = [], loading, onSlotClick }) {
       {slots.map((slot) => {
         const isReserved = slot.status === "reserved";
 
-        const baseClasses =
-          "relative group p-4 rounded-2xl text-center transition-all duration-300 overflow-hidden";
-
-        const reservedClasses =
-          "bg-gray-100 text-gray-400 cursor-not-allowed border-2 border-gray-200";
-
-        const availableClasses =
-          "bg-white border-2 border-gray-100 text-gray-700 cursor-pointer hover:border-pink-300 hover:shadow-lg hover:shadow-pink-100 hover:-translate-y-1 hover:scale-105";
-
         return (
           <button
             key={slot.id}
-            onClick={() => handleSlotClick(slot, isReserved)}
+            onClick={() => handleSlotClick(slot)}
             disabled={isReserved}
-            className={`${baseClasses} ${
-              isReserved ? reservedClasses : availableClasses
-            }`}
+            className={`relative group p-4 rounded-2xl text-center transition-all duration-300 overflow-hidden
+              ${
+                isReserved
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed border-2 border-gray-200"
+                  : "bg-white border-2 border-gray-100 text-gray-700 cursor-pointer hover:border-pink-300 hover:shadow-lg hover:shadow-pink-100 hover:-translate-y-1 hover:scale-105"
+              }`}
           >
             {!isReserved && (
               <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -66,11 +61,12 @@ export default function DaySlots({ slots = [], loading, onSlotClick }) {
 
             <div className="relative z-10">
               <div
-                className={`w-10 h-10 mx-auto mb-2 rounded-xl flex items-center justify-center ${
-                  isReserved
-                    ? "bg-gray-200"
-                    : "bg-gradient-to-br from-pink-500 to-blue-500 text-white shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
-                }`}
+                className={`w-10 h-10 mx-auto mb-2 rounded-xl flex items-center justify-center
+                  ${
+                    isReserved
+                      ? "bg-gray-200"
+                      : "bg-gradient-to-br from-pink-500 to-blue-500 text-white shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                  }`}
               >
                 {isReserved ? (
                   <XCircle className="w-5 h-5 text-gray-400" />
@@ -88,11 +84,12 @@ export default function DaySlots({ slots = [], loading, onSlotClick }) {
               </div>
 
               <div
-                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                  isReserved
-                    ? "bg-gray-200 text-gray-500"
-                    : "bg-green-100 text-green-700 group-hover:bg-green-200 transition-colors"
-                }`}
+                className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium
+                  ${
+                    isReserved
+                      ? "bg-gray-200 text-gray-500"
+                      : "bg-green-100 text-green-700 group-hover:bg-green-200 transition-colors"
+                  }`}
               >
                 {isReserved ? (
                   <>
@@ -117,3 +114,5 @@ export default function DaySlots({ slots = [], loading, onSlotClick }) {
     </div>
   );
 }
+
+export default memo(DaySlots);

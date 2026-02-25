@@ -1,8 +1,8 @@
 
 import "./globals.css";
 import { vazir } from "../../public/font/vazir";
-import { Layout } from "@/components/layout/Layout"; 
-
+import { Layout } from "@/components/layout/Layout";
+// import { Theme } from "@radix-ui/themes";
 
 
 export const metadata = {
@@ -13,9 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" className={vazir.variable} dir="rtl">
+
       <body className="font-[var(--font-vazir)]" >
         <Layout>{children}</Layout>
       </body>
+
     </html>
   );
 }

@@ -34,8 +34,8 @@ export default function Calendar({ events, onDateClick }) {
           today: "امروز",
         }}
         titleFormat={{ year: "numeric", month: "long" }}
-        dayHeaderClassNames="text-gray-600 font-medium py-3"
-        dayCellClassNames="hover:bg-pink-50 transition-colors duration-200 cursor-pointer rounded-lg"
+        dayHeaderClassNames="text-gray-600 text-[11px] sm:text-sm font-medium py-3"
+        dayCellClassNames="hover:bg-pink-50  transition-colors duration-200 cursor-pointer rounded-lg"
         eventClassNames="bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xs rounded-full px-2 py-1 shadow-sm"
       />
     </div>
