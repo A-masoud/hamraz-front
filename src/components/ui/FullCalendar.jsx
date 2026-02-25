@@ -1,60 +1,109 @@
 "use client";
-import { useRef, useMemo } from "react";
+
+import { useCallback, useMemo, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-
+import faLocale from "@fullcalendar/core/locales/fa";
 
 export default function Calendar({ events, onDateClick }) {
   const calendarRef = useRef(null);
 
-  const goPrev = () => calendarRef.current.getApi().prev();
-  const goNext = () => calendarRef.current.getApi().next();
-  const goToday = () => calendarRef.current.getApi().today();
+  const handleDateClick = useCallback(
+    (info) => onDateClick(info.dateStr),
+    [onDateClick]
+  );
 
   const plugins = useMemo(() => [dayGridPlugin, interactionPlugin], []);
 
+  const handlePrev = () => {
+    const api = calendarRef.current?.getApi();
+    api?.prev();
+  };
+
+  const handleNext = () => {
+    const api = calendarRef.current?.getApi();
+    api?.next();
+  };
+
+  const handleToday = () => {
+    const api = calendarRef.current?.getApi();
+    api?.today();
+  };
+
+  // Custom render برای Event - ریسپانسیو
+  const renderEventContent = (eventInfo) => (
+    <div className="bg-gradient-to-r from-pink-500 to-blue-500 text-white text-[10px] sm:text-xs md:text-sm rounded-full px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 shadow-sm whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+      {eventInfo.event.title}
+    </div>
+  );
+
+  // Custom render برای Day Cell - ریسپانسیو
+  const renderDayCellContent = (dayCellInfo) => (
+    <div className="hover:bg-pink-50 transition-colors duration-200 cursor-pointer rounded-md sm:rounded-lg text-xs sm:text-sm md:text-base flex justify-center items-center h-6 sm:h-8 md:h-10 w-full">
+      {dayCellInfo.dayNumberText.replace("日", "")}
+    </div>
+  );
+
+  // Custom render برای Day Header
+  const renderDayHeaderContent = (headerInfo) => (
+    <div className="text-gray-500 sm:text-gray-600 text-[10px] sm:text-xs md:text-sm font-medium py-2 sm:py-3">
+      {headerInfo.text}
+    </div>
+  );
+
   return (
-    <div className="bg-white -scale-z-50 rounded-3xl shadow-xl border border-gray-100 p-6 overflow-hidden">
-      {/* دکمه‌های کنترل تقویم */}
-      <div className="flex justify-between mb-4 flex-wrap gap-2">
+    <div className="w-full -scale-z-50 max-w-full bg-white rounded-xl sm:rounded-2xl md:rounded-3xl shadow-md sm:shadow-lg border border-gray-100 p-2 sm:p-4 md:p-6 overflow-hidden">
+      {/* دکمه‌های سفارشی */}
+      <div className="flex justify-between items-center mb-3 sm:mb-4 md:mb-5 px-1">
+        <div className="flex gap-1.5 sm:gap-2 md:gap-3">
+          <button
+            onClick={handlePrev}
+            className="bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 rounded-lg px-2.5 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-2 text-[11px] sm:text-sm md:text-base font-medium transition-all duration-200 active:scale-95 hover:shadow-sm"
+          >
+            قبلی
+          </button>
+          <button
+            onClick={handleNext}
+            className="bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 rounded-lg px-2.5 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-2 text-[11px] sm:text-sm md:text-base font-medium transition-all duration-200 active:scale-95 hover:shadow-sm"
+          >
+            بعدی
+          </button>
+        </div>
+
         <button
-          onClick={goPrev}
-          className="bg-pink-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-pink-600 transition-colors"
-        >
-          قبلی
-        </button>
-        <button
-          onClick={goToday}
-          className="bg-blue-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-blue-600 transition-colors"
+          onClick={handleToday}
+          className="bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 active:from-pink-700 active:to-blue-700 text-white rounded-lg px-3 py-1 sm:px-5 sm:py-1.5 md:px-6 md:py-2 text-[11px] sm:text-sm md:text-base font-bold shadow-md hover:shadow-lg active:shadow-sm transition-all duration-200 active:scale-95"
         >
           امروز
         </button>
-        <button
-          onClick={goNext}
-          className="bg-pink-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-pink-600 transition-colors"
-        >
-          بعدی
-        </button>
       </div>
 
-      {/* تقویم */}
-      <FullCalendar
-        ref={calendarRef}
-        plugins={plugins}
-        initialView="dayGridMonth"
-        events={events}
-        dateClick={(info) => onDateClick(info.dateStr)}
-        height="auto"
-        locale="fa"
-        direction="rtl"
-        headerToolbar={false} // دکمه‌ها رو خودمون ساختیم
-        buttonText={{ today: "امروز" }}
-        titleFormat={{ year: "numeric", month: "long" }}
-        dayHeaderClassNames="text-gray-600 text-[11px] sm:text-sm font-medium py-3"
-        dayCellClassNames="hover:bg-pink-50 transition-colors duration-200 cursor-pointer rounded-lg"
-        eventClassNames="bg-gradient-to-r from-pink-500 to-blue-500 text-white text-xs rounded-full px-2 py-1 shadow-sm"
-      />
+      <div className="min-w-[280px]">
+        <FullCalendar
+          ref={calendarRef}
+          plugins={plugins}
+          initialView="dayGridMonth"
+          events={events}
+          dateClick={handleDateClick}
+          height="auto"
+          locale={faLocale}
+          direction="rtl"
+          headerToolbar={{
+            left: "",
+            center: "title",
+            right: "",
+          }}
+          titleFormat={{ year: "numeric", month: "long" }}
+          titleClassNames="text-sm sm:text-lg md:text-xl font-bold text-gray-800 py-2 sm:py-3"
+          dayMaxEvents={true}
+          moreLinkClassNames="text-[10px] sm:text-xs text-pink-500 hover:text-pink-600 font-medium"
+          eventContent={renderEventContent}
+          dayCellContent={renderDayCellContent}
+          dayHeaderContent={renderDayHeaderContent}
+          viewClassNames="bg-white"
+        />
+      </div>
     </div>
   );
 }
