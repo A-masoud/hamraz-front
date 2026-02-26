@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import Image from "next/image";
 import { ChevronLeft, Sparkles } from "lucide-react";
 
@@ -32,14 +32,12 @@ const BANNERS = [
 ];
 
 export default function HeroSection() {
-  const banners = useMemo(() => BANNERS, []);
-
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12" dir="rtl">
       
       {/* Promo Banners */}
       <div className="space-y-4 lg:order-2">
-        {banners.map((banner) => (
+        {BANNERS.map((banner) => (
           <div
             key={banner.id}
             className={`
