@@ -9,7 +9,7 @@ import {
 export default function BlogSection() {
 
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-white via-pink-50/30 to-white overflow-hidden" dir="rtl">
+    <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-pink-50/30 to-white overflow-hidden" dir="rtl">
       {/* Background Decorations */}
       <div className="absolute top-20 right-0 w-96 h-96 bg-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
       <div className="absolute bottom-20 left-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
@@ -17,12 +17,12 @@ export default function BlogSection() {
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-pink-100 to-blue-100 text-gray-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-100 to-blue-100 text-gray-700 text-sm font-medium mb-4">
             <span>📝</span>
             مجله سلامت روان
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            مقالات و <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-600 to-blue-600">وبلاگ</span>
+            مقالات و <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-blue-600">وبلاگ</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
             جدیدترین مطالب تخصصی در حوزه روانشناسی، سلامت mental و بهبود کیفیت زندگی را از متخصصان ما بخوانید
@@ -31,12 +31,12 @@ export default function BlogSection() {
 
         {/* Categories */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <button className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-blue-500 text-white font-medium shadow-lg shadow-pink-200 hover:shadow-xl hover:scale-105 transition-all duration-300">
+          <button className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 text-white font-medium shadow-lg shadow-pink-200 hover:shadow-xl hover:scale-105 transition-all duration-300">
             همه مقالات
           </button>
-          {categories.map((cat) => (
+          {categories.map((cat, index) => (
             <button
-              key={cat.name}
+              key={index}
               className={`px-6 py-3 rounded-full ${cat.color} font-medium hover:shadow-md hover:scale-105 transition-all duration-300`}
             >
               {cat.name}
@@ -54,7 +54,7 @@ export default function BlogSection() {
                   alt={featuredArticle.title}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent md:bg-linear-to-r"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:bg-gradient-to-r"></div>
                 <span className="absolute top-4 right-4 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm text-pink-600 text-sm font-bold">
                   {featuredArticle.category}
                 </span>
@@ -109,32 +109,32 @@ export default function BlogSection() {
                   alt={article.title}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-pink-600 text-xs font-bold">
                   {article.category}
                 </span>
               </div>
-
+              
               <div className="p-6">
                 <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
                   <span>{article.date}</span>
                   <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                   <span>{article.readTime} مطالعه</span>
                 </div>
-
+                
                 <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-pink-600 transition-colors">
                   <Link href={`/blog/${article.id}`}>
                     {article.title}
                   </Link>
                 </h3>
-
+                
                 <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
                   {article.excerpt}
                 </p>
-
+                
                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-pink-400 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
                       {article.author[0]}
                     </div>
                     <span className="text-sm text-gray-600 font-medium">{article.author}</span>
@@ -160,7 +160,7 @@ export default function BlogSection() {
         </div>
 
         {/* Newsletter CTA */}
-        <div className="mt-20 relative overflow-hidden rounded-3xl bg-linear-to-r from-pink-500 via-pink-400 to-blue-500 shadow-2xl">
+        <div className="mt-20 relative overflow-hidden rounded-3xl bg-gradient-to-r from-pink-500 via-pink-400 to-blue-500 shadow-2xl">
           <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
               <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />

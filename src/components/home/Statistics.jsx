@@ -6,9 +6,9 @@ const Statistics = () => {
         <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white" dir="rtl">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {Statistic.map((stat) => (
+                    {Statistic.map((stat, index) => (
                         <div
-                            key={stat.label}
+                            key={index}
                             className="relative group bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-pink-200"
                         >
                             <div

@@ -15,9 +15,9 @@ const BookingGuide = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {Guides.map((service) => (
+          {Guides.map((service, index) => (
             <div
-              key={service.title}
+              key={index}
               className={`relative group bg-white rounded-3xl p-6 border-2 ${service.borderColor} hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2`}
             >
               <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${service.color} mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
