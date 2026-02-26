@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { categories } from "@/Items/Home";
 

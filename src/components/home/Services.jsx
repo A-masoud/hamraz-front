@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { services } from "@/Items/Home";
 import { Sparkles } from "lucide-react";
