@@ -1,69 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import {
+  BlogCategories as categories,
+  articles,
+  featuredArticle,
+} from "@/Items/Home";
 
 export default function BlogSection() {
-  const categories = [
-    { name: "سلامت روان", color: "bg-pink-100 text-pink-700" },
-    { name: "روابط عاطفی", color: "bg-blue-100 text-blue-700" },
-    { name: "تربیت فرزند", color: "bg-green-100 text-green-700" },
-    { name: "استرس و اضطراب", color: "bg-purple-100 text-purple-700" },
-  ];
-
-const articles = [
-  {
-    id: 1,
-    title: "۱۰ راهکار عملی برای مدیریت استرس در محیط کار",
-    excerpt:
-      "یاد بگیرید چگونه با تکنیک‌های ساده روزانه، استرس محیط کاری خود را به حداقل برسانید و بهره‌وری خود را افزایش دهید.",
-    image:
-      "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&h=400&fit=crop",
-    category: "استرس و اضطراب",
-    author: "دکتر سارا احمدی",
-    date: "۱۵ بهمن ۱۴۰۳",
-    readTime: "۵ دقیقه",
-    likes: 245,
-  },
-  {
-    id: 2,
-    title: "چگونه ارتباط سالم با همسرمان داشته باشیم؟",
-    excerpt:
-      "رازهای یک رابطه پایدار و عمیق را بشناسید. نکات کلیدی برای بهبود گفتگو و درک متقابل در زندگی زناشویی.",
-    image:
-      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=400&fit=crop",
-    category: "روابط عاطفی",
-    author: "دکتر محمد رضایی",
-    date: "۱۲ بهمن ۱۴۰۳",
-    readTime: "۸ دقیقه",
-    likes: 189,
-  },
-  {
-    id: 3,
-    title: "تأثیر بازی درمانی بر رشد کودکان اوتیسم",
-    excerpt:
-      "بازی‌درمانی یکی از موثرترین روش‌های درمانی برای کودکان طیف اوتیسم است. در این مقاله با این روش آشنا شوید.",
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop",
-    category: "تربیت فرزند",
-    author: "دکتر لیلا کریمی",
-    date: "۱۰ بهمن ۱۴۰۳",
-    readTime: "۶ دقیقه",
-    likes: 321,
-  },
-];
-
-const featuredArticle = {
-  id: 4,
-  title: "راهنمای جامع mindfulness و مدیتیشن برای مبتدی‌ها",
-  excerpt:
-    "مدیتیشن دیگر یک راز نیست! با این راهنمای گام به گام، سفر درونی خود را برای یافتن آرامش آغاز کنید.",
-  image:
-    "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=500&fit=crop",
-  category: "سلامت روان",
-  author: "دکتر نازنین موسوی",
-  date: "۱۸ بهمن ۱۴۰۳",
-  readTime: "۱۲ دقیقه",
-  likes: 567,
-};
 
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-pink-50/30 to-white overflow-hidden" dir="rtl">
