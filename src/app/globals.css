@@ -6,6 +6,9 @@
 :root {
     font-family: var(--font-vazir), sans-serif;
 }
+.story-scroll::-webkit-scrollbar {
+  display: none;
+}
 
 @keyframes overlayShow {
   from { opacity: 0; }
