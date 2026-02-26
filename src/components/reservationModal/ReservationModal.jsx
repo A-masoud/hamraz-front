@@ -6,9 +6,9 @@ import ReservationForm from "./ReservationForm";
 import { useReservationForm } from "@/hooks/reservationModal/useReservationForm";
 
 export default function ReservationModal({ isOpen, onClose, slot }) {
-  if (!slot) return null;
-
   const form = useReservationForm(slot, onClose);
+
+  if (!slot) return null;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
